@@ -29,8 +29,7 @@ class VehicleViewSet(viewsets.ModelViewSet):
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response({"msg":"You are not authorized to perform this action"}, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            print(e)
+        except:
             return Response({"msg": "Something went wrong!"}, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, *args, **kwargs):
@@ -52,8 +51,7 @@ class VehicleViewSet(viewsets.ModelViewSet):
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response({"msg":"You are not authorized to perform this action"}, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as ex:
-            print("An error occurred:", ex)
+        except:
             return Response({"msg": "Something went wrong!"}, status=status.HTTP_400_BAD_REQUEST)
 
 

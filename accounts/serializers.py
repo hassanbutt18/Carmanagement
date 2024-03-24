@@ -9,7 +9,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         email = attrs.get('email', None)
-        print("in here email", email)
         if email is None:
             raise serializers.ValidationError({"msg": "Enter a valid email address"})
         return attrs
