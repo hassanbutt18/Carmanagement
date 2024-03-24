@@ -13,6 +13,7 @@ class VehicleViewSet(viewsets.ModelViewSet):
     queryset = Vehicle.objects.all()
     serializer_class = VehicleSerializerResponse
     pagination_class = CustomPagination
+    permission_class = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
         try:
