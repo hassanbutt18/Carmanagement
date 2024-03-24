@@ -4,6 +4,7 @@ from WheelWorks.models import Vehicle
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from .pagination import CustomPagination
 from .permissions import IsOwnerOrReadOnly
 from .serializers import VehicleSerializer, VehicleSerializerResponse
 
@@ -11,6 +12,7 @@ from .serializers import VehicleSerializer, VehicleSerializerResponse
 class VehicleViewSet(viewsets.ModelViewSet):
     queryset = Vehicle.objects.all()
     serializer_class = VehicleSerializerResponse
+    pagination_class = CustomPagination
 
     def create(self, request, *args, **kwargs):
         try:
