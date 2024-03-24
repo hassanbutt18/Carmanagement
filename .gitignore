@@ -1,0 +1,7 @@
+# Ignore virtual environment directory
+venv/
+newvenv/
+WheelWorks/migrations
+accounts/migrations
+# Ignore SQLite database file
+db.sqlite3
