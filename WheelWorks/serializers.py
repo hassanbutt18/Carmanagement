@@ -23,7 +23,7 @@ class VehicleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vehicle
-        fields = ['make', 'VIN', 'model', 'mileage', 'owner', 'color', 'year']
+        fields = ['make', 'VIN', 'model', 'mileage', 'color', 'year']
 
     def create(self, validated_data):
         vehicle = Vehicle.objects.create(

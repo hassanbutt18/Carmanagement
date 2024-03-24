@@ -32,7 +32,7 @@ class VehicleViewSet(viewsets.ModelViewSet):
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response({"msg":"You are not authorized to perform this action"}, status=status.HTTP_400_BAD_REQUEST)
-        except:
+        except Exception as ex:
             return Response({"msg": "Something went wrong!"}, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, *args, **kwargs):
@@ -57,13 +57,18 @@ class VehicleViewSet(viewsets.ModelViewSet):
         except:
             return Response({"msg": "Something went wrong!"}, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, *args, **kwargs):
+    def destroy(self, request, *args, **kwargs):
         try:
             # Retrieve the instance of Vehicle
-            instance = get_object_or_404(Vehicle, id=self.kwargs.get('pk'))
-            if instance.owner == request.user:
-                instance.delete()
-                return Response({"msg":"Successfully delete the Vehicle"}, status=status.HTTP_200_OK)
+            vehicle_instance = Vehicle.objects.filter(id=self.kwargs.get('pk'))
+            if vehicle_instance:
+                instance = vehicle_instance.first()
+                if instance.owner == request.user:
+                    vehicle_instance.delete()
+                    return Response({"msg":"Successfully delete the Vehicle"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"msg": "Vehicle does not exists"}, status=status.HTTP_400_BAD_REQUEST)
+
         except:
             return Response({"msg": "Something went wrong!"}, status=status.HTTP_400_BAD_REQUEST)
 
