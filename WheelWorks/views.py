@@ -57,4 +57,14 @@ class VehicleViewSet(viewsets.ModelViewSet):
         except:
             return Response({"msg": "Something went wrong!"}, status=status.HTTP_400_BAD_REQUEST)
 
+    def delete(self, request, *args, **kwargs):
+        try:
+            # Retrieve the instance of Vehicle
+            instance = get_object_or_404(Vehicle, id=self.kwargs.get('pk'))
+            if instance.owner == request.user:
+                instance.delete()
+                return Response({"msg":"Successfully delete the Vehicle"}, status=status.HTTP_200_OK)
+        except:
+            return Response({"msg": "Something went wrong!"}, status=status.HTTP_400_BAD_REQUEST)
+
 
