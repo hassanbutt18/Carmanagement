@@ -66,9 +66,10 @@ class VehicleViewSet(viewsets.ModelViewSet):
                 if instance.owner == request.user:
                     vehicle_instance.delete()
                     return Response({"msg":"Successfully delete the Vehicle"}, status=status.HTTP_200_OK)
+                else:
+                    return Response({"msg":"Only owner can delete the Vehicle"}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 return Response({"msg": "Vehicle does not exists"}, status=status.HTTP_400_BAD_REQUEST)
-
         except:
             return Response({"msg": "Something went wrong!"}, status=status.HTTP_400_BAD_REQUEST)
 
